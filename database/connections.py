@@ -1,0 +1,1 @@
+# Lógica para conectar y cerrar la DB
