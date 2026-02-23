@@ -1,0 +1,35 @@
+Login {
+    /* La variable se reemplaza dinámicamente en Python */
+    border-image: url("{{background_image_path}}") 0 0 0 0 stretch stretch;
+}
+
+#loginCard {
+    background-color: white;
+    border-radius: 15px;
+    /* Podemos agregar aquí algo de sombra si PySide lo soportara fácilmente, pero por ahora color base */
+}
+
+#loginCard QLabel {
+    color: #333;
+    background: transparent;
+}
+
+/* Estilos extra de ejemplo para cuando agregues inputs y botones */
+#loginCard QLineEdit {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: #f9f9f9;
+}
+
+#loginCard QPushButton {
+    background-color: #007acd;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#loginCard QPushButton:hover {
+    background-color: #005a9e;
+}
