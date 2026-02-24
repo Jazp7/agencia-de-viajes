@@ -66,3 +66,7 @@ Login {
 #loginCard QPushButton:pressed {
     background-color: #004080;
 }
+
+#inputEmail, #inputPass {
+    color: black;
+}

@@ -1,11 +1,17 @@
+# views/login.py
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QFrame
-# from PySide6.QtGui import QPixmap
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Signal # NUEVO: Importamos Signal
 from pathlib import Path
 
 class Login(QWidget):
-    def __init__(self):
+    # NUEVO: Creamos el "grito" o evento personalizado. Debe declararse a nivel de clase.
+    login_exitoso = Signal()
+
+    # NUEVO: Recibimos el db_manager en el constructor
+    def __init__(self, db_manager):
         super().__init__()
+        
+        self.db = db_manager # Guardamos la herramienta para consultar datos
 
         # Qt ignora los estilos de fondo en subclases directas de QWidget a menos que se active esta propiedad
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
@@ -63,6 +69,7 @@ class Login(QWidget):
 
         self.input_email = QLineEdit()
         self.input_email.setObjectName("inputEmail")
+        self.input_email.setMinimumHeight(50)
 
         self.label_pass = QLabel("Contraseña")
         self.label_pass.setObjectName("labelPass")
@@ -70,6 +77,7 @@ class Login(QWidget):
         self.input_pass = QLineEdit()
         self.input_pass.setObjectName("inputPass")
         self.input_pass.setEchoMode(QLineEdit.EchoMode.Password)
+        self.input_pass.setMinimumHeight(50)
         
         self.btn_login = QPushButton("Iniciar sesión")
         self.btn_login.setObjectName("btnLogin")
@@ -85,3 +93,24 @@ class Login(QWidget):
 
         # 6. Agregar la tarjeta al layout principal
         main_layout.addWidget(self.card)
+
+        # NUEVO: 7. Conectamos el clic del botón a nuestra nueva función de validación
+        self.btn_login.clicked.connect(self.intentar_login)
+
+    # NUEVO: Método que se ejecuta al presionar el botón
+    def intentar_login(self):
+        # Obtenemos el texto que escribió el usuario
+        usuario_ingresado = self.input_email.text()
+        password_ingresado = self.input_pass.text()
+
+        # Le preguntamos al Archivista (la base de datos) si los datos son correctos
+        if self.db.verificar_credenciales(usuario_ingresado, password_ingresado):
+            # ¡Éxito! Emitimos la señal para que main_window cambie la pantalla
+            self.login_exitoso.emit()
+        else:
+            # Error visual: Cambiamos el texto de la descripción y lo ponemos en rojo
+            self.label_desc.setText("Usuario o contraseña incorrectos")
+            self.label_desc.setStyleSheet("color: red; font-weight: bold;")
+            
+            # Limpiamos el campo de contraseña para que vuelva a intentar
+            self.input_pass.clear()
