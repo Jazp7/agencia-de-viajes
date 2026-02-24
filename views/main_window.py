@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PySide6.QtCore import Qt
 from login import Login
@@ -25,10 +24,3 @@ class MainWindow(QMainWindow):
         event.accept()
 
 
-app = QApplication(sys.argv)
-app.aboutToQuit.connect(lambda: print("Saliendo de la aplicación..."))
-
-window = MainWindow()
-window.showMaximized()
-
-sys.exit(app.exec())
