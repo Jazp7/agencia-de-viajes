@@ -19,8 +19,14 @@ class MainWindow(QMainWindow):
         login = Login()
         self.layout.addWidget(login)
 
+    def closeEvent(self, event):
+        print("Cerrando aplicación...")
+        QApplication.quit()
+        event.accept()
+
 
 app = QApplication(sys.argv)
+app.aboutToQuit.connect(lambda: print("Saliendo de la aplicación..."))
 
 window = MainWindow()
 window.showMaximized()

@@ -4,32 +4,65 @@ Login {
 }
 
 #loginCard {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.95);  /* Un poco transparente para mejor integración */
     border-radius: 15px;
-    /* Podemos agregar aquí algo de sombra si PySide lo soportara fácilmente, pero por ahora color base */
+    padding-bottom: 20px;
 }
 
-#loginCard QLabel {
+#loginCard #emojiLabel {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+#loginCard #titulo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007acd;
+    margin-bottom: 10px;
+}
+
+#loginCard #descripcion {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#loginCard #labelEmail, #loginCard #labelPass {
+    font-size: 14px;
+    font-weight: bold;
     color: #333;
-    background: transparent;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
-/* Estilos extra de ejemplo para cuando agregues inputs y botones */
 #loginCard QLineEdit {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
     background-color: #f9f9f9;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#loginCard QLineEdit:focus {
+    border-color: #007acd;
+    background-color: #fff;
 }
 
 #loginCard QPushButton {
     background-color: #007acd;
     color: white;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 8px;
+    padding: 15px 20px;  /* Aumentar padding para hacer el botón más grande */
     font-weight: bold;
+    font-size: 16px;
+    margin-top: 20px;
 }
 
 #loginCard QPushButton:hover {
     background-color: #005a9e;
+}
+
+#loginCard QPushButton:pressed {
+    background-color: #004080;
 }

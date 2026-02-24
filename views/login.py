@@ -40,20 +40,40 @@ class Login(QWidget):
         # 5. Layout interno de la tarjeta (aquí van tus botones e inputs)
         card_layout = QVBoxLayout(self.card)
         card_layout.setContentsMargins(30, 30, 30, 30)
+        card_layout.setSpacing(15)  # Agregar espaciado entre elementos
+
+        # Agregar emoji de avión antes del título
+        self.emoji_label = QLabel("✈️")
+        self.emoji_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.emoji_label.setObjectName("emojiLabel")
+        card_layout.addWidget(self.emoji_label)
 
         # Ejemplo: Agregando un título dentro de la tarjeta
         titulo = QLabel("Agency Portal Login")
-        titulo.setStyleSheet("font-size: 20px; font-weight: bold;")
+        titulo.setObjectName("titulo")  # Para aplicar estilos específicos en CSS
         titulo.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
         # Elementos
         self.label_desc = QLabel("Ingresa tus credenciales para iniciar sesión")
+        self.label_desc.setObjectName("descripcion")
+        self.label_desc.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
         self.label_email = QLabel("Correo electrónico o usuario")
+        self.label_email.setObjectName("labelEmail")
+
         self.input_email = QLineEdit()
+        self.input_email.setObjectName("inputEmail")
+
         self.label_pass = QLabel("Contraseña")
+        self.label_pass.setObjectName("labelPass")
+
         self.input_pass = QLineEdit()
+        self.input_pass.setObjectName("inputPass")
         self.input_pass.setEchoMode(QLineEdit.EchoMode.Password)
+        
         self.btn_login = QPushButton("Iniciar sesión")
+        self.btn_login.setObjectName("btnLogin")
+        self.btn_login.setMinimumHeight(70)  # Hacer el botón más alto para que el texto se vea bien
 
         card_layout.addWidget(titulo)
         card_layout.addWidget(self.label_desc)
