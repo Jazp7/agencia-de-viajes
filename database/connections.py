@@ -3,6 +3,13 @@
 import sqlite3
 import os
 
+from database.queries import (
+    CREATE_USUARIOS_TABLE,
+    COUNT_USUARIOS,
+    INSERT_USUARIO,
+    VERIFY_CREDENTIALS
+)
+
 class DatabaseManager:
     def __init__(self):
         # EXPLICACIÓN: Aseguramos que la carpeta database exista y nos conectamos al archivo .db
@@ -16,25 +23,17 @@ class DatabaseManager:
 
     def _crear_tabla_inicial(self):
         # EXPLICACIÓN: Crea la tabla y mete un usuario "admin" con clave "123" para que puedas probar
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS usuarios (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                usuario TEXT UNIQUE NOT NULL,
-                password TEXT NOT NULL
-            )
-        ''')
+        self.cursor.execute(CREATE_USUARIOS_TABLE)
         
         # Insertar usuario de prueba solo si la tabla está vacía
-        self.cursor.execute('SELECT COUNT(*) FROM usuarios')
+        self.cursor.execute(COUNT_USUARIOS)
         if self.cursor.fetchone()[0] == 0:
-            self.cursor.execute('INSERT INTO usuarios (usuario, password) VALUES (?, ?)', ("admin", "123"))
+            self.cursor.execute(INSERT_USUARIO, ("admin", "123"))
             self.conexion.commit()
 
     def verificar_credenciales(self, usuario, password):
         # EXPLICACIÓN: Busca en la base de datos si existe la combinación exacta
-        self.cursor.execute('''
-            SELECT * FROM usuarios WHERE usuario = ? AND password = ?
-        ''', (usuario, password))
+        self.cursor.execute(VERIFY_CREDENTIALS, (usuario, password))
         
         resultado = self.cursor.fetchone()
         

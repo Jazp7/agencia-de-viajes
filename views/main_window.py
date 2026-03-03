@@ -2,6 +2,7 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QLabel
 from PySide6.QtCore import Qt
 from views.login import Login
+from views.dashboard import Dashboard
 
 class MainWindow(QMainWindow):
     # NUEVO: Ahora el constructor recibe el db_manager que le manda main.py
@@ -29,14 +30,14 @@ class MainWindow(QMainWindow):
 
     def mostrar_dashboard(self):
         # EXPLICACIÓN: Esta función se ejecuta solo si las credenciales fueron correctas.
-        # Por ahora creamos un texto de prueba, luego aquí pondrás tu barra lateral y tablas.
-        pantalla_dashboard = QLabel("¡BIENVENIDO AL DASHBOARD!\n(Aquí irá el contenido principal de la agencia)")
-        pantalla_dashboard.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        pantalla_dashboard.setStyleSheet("font-size: 30px; color: #007acd;")
+        from views.main_container import MainContainer
+        
+        # Instanciamos el contenedor principal (que tiene sidebar, header y páginas)
+        self.main_app_view = MainContainer(self.db)
 
-        # Añadimos el dashboard al mazo (índice 1) y lo ponemos a la vista
-        self.stack.addWidget(pantalla_dashboard)
-        self.stack.setCurrentWidget(pantalla_dashboard)
+        # Añadimos el dashboard principal al mazo (índice 1) y lo ponemos a la vista
+        self.stack.addWidget(self.main_app_view)
+        self.stack.setCurrentWidget(self.main_app_view)
 
     def closeEvent(self, event):
         print("Cerrando aplicación...")
